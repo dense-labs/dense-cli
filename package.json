@@ -1,0 +1,26 @@
+{
+  "name": "dense-cli",
+  "version": "1.0.0",
+  "description": "dense-cli",
+  "main": "./bin/index.js",
+  "scripts": {
+     "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dense-labs/dense-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dense-labs/dense-cli/issues"
+  },
+  "homepage": "https://github.com/dense-labs/dense-cli#readme",
+  "dependencies": {
+    "@dense-labs/eslint-config-ts": "^1.0.4",
+    "figlet": "^1.6.0",
+    "picocolors": "^1.0.0",
+    "tsup": "^6.7.0"
+  }
+}
