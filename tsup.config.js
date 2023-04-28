@@ -3,7 +3,7 @@ import { defineConfig } from 'tsup'
 const config = {
 	outDir: 'dist',
 	clean: true,
-	minify: true,
+	// minify: true,
 	sourcemap: false
 }
 

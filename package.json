@@ -23,6 +23,7 @@
   "dependencies": {
     "@dense-labs/eslint-config-ts": "^1.0.4",
     "figlet": "^1.6.0",
+    "inquirer": "^9.2.0",
     "picocolors": "^1.0.0",
     "tsup": "^6.7.0"
   }
