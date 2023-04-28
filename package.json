@@ -27,9 +27,5 @@
     "inquirer": "^9.2.0",
     "picocolors": "^1.0.0",
     "tsup": "^6.7.0"
-  },
-  "devDependencies": {
-    "@types/figlet": "^1.5.5",
-    "@types/inquirer": "^9.0.3"
   }
 }

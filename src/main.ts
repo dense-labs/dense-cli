@@ -2,7 +2,6 @@ import { cac } from 'cac'
 import pc from 'picocolors'
 import figlet from 'figlet'
 import { chooseTemplate } from './prompt'
-export {version} from '../package.json'
 const cli = cac('dm')
 cli.version('1.0.0')
 
