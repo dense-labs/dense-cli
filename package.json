@@ -22,9 +22,14 @@
   "homepage": "https://github.com/dense-labs/dense-cli#readme",
   "dependencies": {
     "@dense-labs/eslint-config-ts": "^1.0.4",
+    "cac": "^6.7.14",
     "figlet": "^1.6.0",
     "inquirer": "^9.2.0",
     "picocolors": "^1.0.0",
     "tsup": "^6.7.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.5.5",
+    "@types/inquirer": "^9.0.3"
   }
 }
