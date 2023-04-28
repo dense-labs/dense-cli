@@ -2,9 +2,12 @@
   "name": "dense-cli",
   "version": "1.0.0",
   "description": "dense-cli",
-  "main": "./bin/index.js",
+  "main": "bin/index.js",
+  "bin": {
+    "dm": "bin/index.js"
+  },
   "scripts": {
-     "build": "tsup"
+    "build": "tsup"
   },
   "repository": {
     "type": "git",
