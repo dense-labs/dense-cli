@@ -3,7 +3,7 @@ import pc from 'picocolors'
 import figlet from 'figlet'
 import { chooseTemplate } from './prompt'
 const cli = cac('dm')
-cli.version('1.0.0')
+cli.version('1.0.1')
 
 cli
   .command('create', '创建一个新项目') // 增加创建指令
