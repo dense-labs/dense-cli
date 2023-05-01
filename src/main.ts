@@ -34,7 +34,7 @@ cli.help(() => {
 })
 
 cli.command('list', '查看所有模板类型').action(() => {
-  console.log('查看所有模板类型')
+  
 })
 
 cli.parse()
