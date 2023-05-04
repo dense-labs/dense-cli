@@ -9,7 +9,7 @@ cli
   .command('create', '创建一个新项目') // 增加创建指令
   .option('-f, --force', '如果目标文件存在，则强制覆盖') // 强制覆盖
   .action(async (cmd) => {
-    //const template = await chooseTemplate()
+    const template = await chooseTemplate()
   })
 
 cli
