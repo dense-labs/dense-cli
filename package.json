@@ -24,7 +24,7 @@
     "@dense-labs/eslint-config-ts": "^1.0.4",
     "cac": "^6.7.14",
     "figlet": "^1.6.0",
-    "inquirer": "^9.2.0",
+    "inquirer": "^8.2.5",
     "picocolors": "^1.0.0",
     "tsup": "^6.7.0"
   }
