@@ -10,6 +10,7 @@ cli
   .option('-f, --force', '如果目标文件存在，则强制覆盖') // 强制覆盖
   .action(async (cmd) => {
     const template = await chooseTemplate()
+    console.log(template)
   })
 
 cli
