@@ -1,18 +1,9 @@
 import path from 'path'
 import fs from 'fs-extra'
 import pc from 'picocolors'
-import ora, {
-	Ora
-} from 'ora'
-import {
-	Ioptions
-} from '../types'
-import {
-	isOverwriteDir
-} from '../prompt'
-import {
-	clg
-} from '../utils'
+import ora, {Ora} from 'ora'
+import {isOverwriteDir} from '../prompt'
+import {clg} from '../utils'
 const spinner: Ora = ora()
 export const isExistsFile = async (projectName: string, options: Ioptions) => {
 	// 获取当前工作目录
