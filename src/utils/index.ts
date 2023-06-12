@@ -1,10 +1,11 @@
 import figlet from 'figlet'
-import boxen from 'boxen'
+// import boxen from 'boxen'
 import gradient from 'gradient-string'
 
 export function generateAscii(str: string) {
     console.log(genGradientText('🎉 Welcome to dense-cli scaffolding'))
     figletAscii(str)
+    // boxenAscii(str)
 }
 export const figletAscii = (e: string) => {
     console.log(genGradientText(
@@ -26,7 +27,7 @@ export function genGradientText(str: string) {
 }
 
 export function boxenAscii(str: string) {
-    const text = genGradientText(
+    /* const text = genGradientText(
         figlet.textSync(`${str}`, {
         font: '3D-ASCII',
         horizontalLayout: 'default',
@@ -41,6 +42,6 @@ export function boxenAscii(str: string) {
         dimBorder: true,
         padding: {top: 1, right: 10, bottom: 1, left: 10}
     })
-    return upgradeMessage
+    return upgradeMessage */
 }
 

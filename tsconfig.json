@@ -1,7 +1,7 @@
 { 
     "compilerOptions":  { 
         "target": "esnext",
-        "module": "esnext", /* 输出的代码使用什么方式进行模块化： */
+        "module": "node16", /* 输出的代码使用什么方式进行模块化： */
         "lib": ["esnext",  "dom"], /* 指定引用的标准库 */ 
         "resolveJsonModule": true, /* 允许 import json 文件 */
         "esModuleInterop": true,
@@ -17,8 +17,7 @@
         /* 额外检查 */ 
         "noUnusedLocals": true, /* 检查无用的变量. */ 
         "types": [], /* 类型声明文件 */ 
-        "moduleResolution": "node",
-
+        "moduleResolution": "node16",
         "baseUrl": "."
     },
     "include": [ 
