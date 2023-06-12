@@ -1,10 +1,12 @@
 import { cac } from 'cac'
 import { chooseTemplate } from './prompt'
-import {version} from '../package.json'
-import {figletAscii} from './utils'
-const cli = cac('dense')
+import { version } from '../package.json'
+import { generateAscii} from './utils'
+const binName = 'dense'
+const cli = cac(binName)
 cli.version(version)
-figletAscii()
+generateAscii(binName)
+
 cli
   .command('create', '创建一个新项目') // 增加创建指令
   .option('-f, --force', '如果目标文件存在，则强制覆盖') // 强制覆盖
@@ -21,10 +23,9 @@ cli
   })
 
 cli.help(() => {
-  figletAscii()
 })
 
 cli.command('list', '查看所有模板类型').action(() => {
-  
+
 })
 cli.parse()
