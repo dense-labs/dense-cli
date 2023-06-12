@@ -4,7 +4,8 @@
   "description": "dense-cli",
   "main": "bin/index.js",
   "bin": {
-    "dense": "bin/index.js"
+    "dense": "bin/index.js",
+    "d": "bin/index.js"
   },
   "scripts": {
     "dev": "tsup --watch",
