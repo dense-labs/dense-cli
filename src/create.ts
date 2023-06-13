@@ -2,14 +2,15 @@ import path from 'path'
 import fs from 'fs-extra'
 import pc from 'picocolors'
 import ora, {Ora} from 'ora'
-import {isOverwriteDir} from '../prompt'
-import {clg} from '../utils'
+import {isOverwriteDir} from './prompt'
+import {Ioptions} from './index.d'
+import {clg} from './utils/log'
 const spinner: Ora = ora()
-export const isExistsFile = async (projectName: string, options: Ioptions) => {
+export const isExistsFile = async (name: string, options: Ioptions) => {
 	// 获取当前工作目录
 	const cwd = process.cwd()
-	// 拼接得到项目目录
-	const targetDirectory = path.join(cwd, projectName)
+	// 当前绝对路径
+	const targetDirectory = path.join(cwd, name)
 	// 判断目录是否存在
 	if (fs.existsSync(targetDirectory)) {
 		// 判断是否使用 --force 参数
@@ -28,7 +29,7 @@ export const isExistsFile = async (projectName: string, options: Ioptions) => {
 				try {
 					spinner.start('删除中...')
 					await fs.remove(targetDirectory)
-					spinner.succeed(`成功删除 ${pc.gray(projectName)}`)
+					spinner.succeed(`成功删除 ${pc.gray(name)}`)
 				} catch (error) {
 					spinner.fail('覆盖失败, 请重试')
 					process.exit(1)

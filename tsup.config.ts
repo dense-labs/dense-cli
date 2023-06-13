@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup'
+import {defineConfig} from 'tsup'
 
 const config = {
 	outDir: 'dist',
@@ -7,9 +7,11 @@ const config = {
 	sourcemap: false
 }
 
-export default defineConfig([{
-	entry: ['src/main.ts'],
-	treeshake: true,
-	format: ['cjs'],
-	...config
-}])
+export default defineConfig([
+	{
+		entry: ['src/main.ts'],
+		treeshake: true,
+		format: ['cjs'],
+		...config
+	}
+])

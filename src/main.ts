@@ -1,31 +1,40 @@
-import { cac } from 'cac'
-import { chooseTemplate } from './prompt'
-import { version } from '../package.json'
-import { generateAscii} from './utils'
+import {cac} from 'cac'
+import {version} from '../package.json'
+import {chooseTemplate} from './prompt'
+import {isExistsFile} from './create'
+import {generateAscii, genGradientText} from './utils/asciitext'
+import {downLogger} from './utils/animation'
+
 const binName = 'dense'
 const cli = cac(binName)
-cli.version(version)
+cli.version(genGradientText(version))
 generateAscii(binName)
 
-cli
-  .command('create', '创建一个新项目') // 增加创建指令
-  .option('-f, --force', '如果目标文件存在，则强制覆盖') // 强制覆盖
-  .action(async (cmd) => {
-    const template = await chooseTemplate()
-    console.log(template)
-  })
+downLogger(
+	new Promise<void>((resolve, inject) => {
+		setTimeout(() => {
+			resolve()
+		}, 3000)
+	})
+)
 
-cli
-  .command('init <template-name> <project-name>', '创建一个新项目') // 增加创建指令
-  .option('-f, --force', '如果目标文件存在，则强制覆盖') // 强制覆盖
-  .action(async (templateName, projectName, cmd) => {
-    console.log('init <template-name> <project-name>')
-  })
+cli.command('create', 'create a new project') // 增加创建指令
+	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
+	.action(async (cmd) => {
+		const name = await chooseTemplate()
+		const isExists = await isExistsFile(name, cmd)
+		if (isExists) return
+		console.log(name)
+	})
+
+cli.command('init <template-name> <project-name>', 'create a new project') // 增加创建指令
+	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
+	.action(async (templateName, projectName, cmd) => {
+		console.log('init <template-name> <project-name>', templateName, projectName, cmd)
+	})
 
 cli.help(() => {
+	console.log('help')
 })
 
-cli.command('list', '查看所有模板类型').action(() => {
-
-})
 cli.parse()
