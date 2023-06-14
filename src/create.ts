@@ -1,10 +1,11 @@
-import path from 'path'
+import download from 'download-git-repo'
 import fs from 'fs-extra'
-import pc from 'picocolors'
 import ora, {Ora} from 'ora'
+import path from 'path'
+import pc from 'picocolors'
+import {Ioptions} from './types'
 import {isOverwriteDir} from './prompt'
-import {Ioptions} from './index.d'
-import {clg} from './utils/log'
+import log, {clg} from './utils/log'
 const spinner: Ora = ora()
 export const isExistsFile = async (name: string, options: Ioptions) => {
 	// 获取当前工作目录
@@ -22,16 +23,15 @@ export const isExistsFile = async (name: string, options: Ioptions) => {
 			const isOverwrite = await isOverwriteDir()
 			// 选择 Cancel
 			if (!isOverwrite) {
-				clg(pc.green('取消成功'))
 				return true
 			} else {
 				// 选择 Overwirte ，先删除掉原有重名目录
 				try {
-					spinner.start('删除中...')
+					spinner.start('deleting...')
 					await fs.remove(targetDirectory)
-					spinner.succeed(`成功删除 ${pc.gray(name)}`)
+					spinner.succeed(`successfully deleted ${pc.gray(name)}`)
 				} catch (error) {
-					spinner.fail('覆盖失败, 请重试')
+					spinner.fail('Overwrite failed, please try again')
 					process.exit(1)
 				}
 				return false
@@ -40,4 +40,18 @@ export const isExistsFile = async (name: string, options: Ioptions) => {
 	} else {
 		return false
 	}
+}
+export const downloadObject = async (url: string, content: any, opt: any) => {
+	return new Promise((resolve, reject) => {
+		download(url, content, opt, (err: string) => {
+			if (err) {
+				log.err(err)
+				reject()
+			} else {
+				resolve(1)
+			}
+		})
+	}).catch((e) => {
+		console.log(e)
+	})
 }

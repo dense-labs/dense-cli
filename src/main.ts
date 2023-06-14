@@ -10,13 +10,13 @@ const cli = cac(binName)
 cli.version(genGradientText(version))
 generateAscii(binName)
 
-downLogger(
+/* downLogger(
 	new Promise<void>((resolve, inject) => {
 		setTimeout(() => {
 			resolve()
 		}, 3000)
 	})
-)
+) */
 
 cli.command('create', 'create a new project') // 增加创建指令
 	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
