@@ -1,7 +1,7 @@
 {
   "name": "dense-cli",
-  "version": "1.0.0",
-  "description": "dense-cli",
+  "version": "1.0.1",
+  "description": "Dense-cli is a Node.js-based command-line tool that provides a scaffolding for quickly creating and managing projects",
   "keywords": [
     "@dense/utils",
     "cli",
