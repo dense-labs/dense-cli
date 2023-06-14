@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "dense-cli",
   "main": "bin/index.js",
+  "cliname": "dense",
   "engines": {
     "node": ">=14.16"
   },

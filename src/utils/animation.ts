@@ -7,7 +7,7 @@ const logger = createLogger({
 		// frames: ['◐', '◓', '◑', '◒']
 	} */
 })
-export async function downLogger(fn: Promise<void>) {
+export async function downLogger(fn: Promise<unknown>) {
 	await logger(fn, 'Download time-consuming: ', {
 		estimate: 7000
 	})

@@ -51,3 +51,27 @@ export const isOverwriteDir = async () => {
 	])
 	return isOverwrite
 }
+
+export const isGitRepoInitialized = async () => {
+	const {isInitGit} = await inquirer.prompt([
+		{
+			name: 'isInitGit',
+			type: 'confirm',
+			message: 'Do you want to initialize git?',
+			default: true
+		}
+	])
+	return isInitGit
+}
+
+export const isAutoInstall = async () => {
+	const {isinstall} = await inquirer.prompt([
+		{
+			name: 'isinstall',
+			type: 'confirm',
+			message: 'Confirm install additional dependencies ?',
+			default: true
+		}
+	])
+	return isinstall
+}

@@ -5,8 +5,14 @@ import path from 'path'
 import pc from 'picocolors'
 import {Ioptions} from './types'
 import {isOverwriteDir} from './prompt'
-import log, {clg} from './utils/log'
+import log from './utils/log'
 const spinner: Ora = ora()
+/**
+ * 判断指定目录是否存在
+ * @param name - 目录名称
+ * @param options - 选项对象，包含一个 `force` 属性，表示是否强制覆盖已有目录
+ * @returns 如果目录存在，则根据选项返回相应结果；否则，返回 `false`
+ */
 export const isExistsFile = async (name: string, options: Ioptions) => {
 	// 获取当前工作目录
 	const cwd = process.cwd()
@@ -41,9 +47,9 @@ export const isExistsFile = async (name: string, options: Ioptions) => {
 		return false
 	}
 }
-export const downloadObject = async (url: string, content: any, opt: any) => {
+export function downloadObject(url: string, path: string, opt: any) {
 	return new Promise((resolve, reject) => {
-		download(url, content, opt, (err: string) => {
+		download(url, path, opt, (err: string) => {
 			if (err) {
 				log.err(err)
 				reject()
