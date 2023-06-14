@@ -21,8 +21,6 @@
         "moduleResolution": "node",
         "baseUrl": "."
     },
-    "include": [ 
-        "src/**/*.ts"
-    ],
+    "include": ["src/**/*.ts", "index.d.ts"],
     "exclude": ["node_modules", "dist"]
 }
