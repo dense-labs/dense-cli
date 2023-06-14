@@ -2,7 +2,11 @@
   "name": "dense-cli",
   "version": "1.0.0",
   "description": "dense-cli",
-  "keywords": [],
+  "keywords": [
+    "@dense/utils",
+    "cli",
+    "template"
+  ],
   "homepage": "https://github.com/dense-labs/dense-cli#readme",
   "bugs": {
     "url": "https://github.com/dense-labs/dense-cli/issues"
@@ -18,6 +22,10 @@
     "d": "bin/index.js",
     "dense": "bin/index.js"
   },
+  "files": [
+    "dist",
+    "bin"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -48,7 +56,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "release-it": "^15.11.0"
   },
   "engines": {
     "node": ">=14.16"
