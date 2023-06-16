@@ -54,7 +54,7 @@ export function resolveDirPath(name: string): string {
  * @param cwd - 执行命令时的工作目录
  */
 export function installDependencies(cwd: string): void {
-	console.log(cwd, '开始安装依赖')
+	console.log(cwd, 'Start installing dependencies')
 	// 执行 `npm install` 命令
 	execSync('npm install', {cwd, stdio: 'inherit'})
 }
