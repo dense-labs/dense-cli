@@ -2,8 +2,8 @@ export interface Ioptions {
 	force: string
 }
 
-interface ITemplatesItem {
-	url: string
+export interface ITemplatesItem {
+	downloadUrl: string
 	description: string
 	branch: string
 }

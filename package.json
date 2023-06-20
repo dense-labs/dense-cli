@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@dense-labs/eslint-config-ts": "^1.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@types/figlet": "^1.5.6",
     "@types/fs-extra": "^11.0.1",
     "@types/gradient-string": "^1.1.2",
