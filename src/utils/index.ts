@@ -1,5 +1,7 @@
 import {execSync, exec} from 'child_process'
 import path from 'path'
+import log from './log'
+
 /**
  * 判断是否安装了 Git
  * @returns 如果安装了 Git，则返回 true；否则，返回 false。
@@ -20,19 +22,20 @@ export function hasGitInstalled(): boolean {
 /**
  * 在指定目录下初始化 Git 仓库
  * @param repoPath - 仓库路径
- * @param callback - 回调函数，接收一个错误对象作为参数，表示执行过程中是否出现错误
  */
-export function createGitRepo(repoPath: string, callback: (error: Error | null) => void): void {
-	// 执行 `cd ${repoPath} && git init` 命令
-	exec(`cd ${repoPath} && git init`, (err, stdout, stderr) => {
-		if (err) {
-			console.error(`exec error: ${err}`)
-			callback(err)
-			return
-		}
-		console.log(`stdout: ${stdout}`)
-		// 执行完成后，调用回调函数
-		callback(null)
+export function createGitRepo(repoPath: string): Promise<void> {
+	return new Promise((resolve, reject) => {
+		// 执行 `cd ${repoPath} && git init` 命令
+		exec(`cd ${repoPath} && git init`, (err, stdout, stderr) => {
+			if (err) {
+				log.err(`\nexec error: ${err}`)
+				reject(err)
+				return
+			}
+			console.log(`\nstdout: ${stdout}`)
+			// 执行完成后，调用 resolve() 函数
+			resolve()
+		})
 	})
 }
 

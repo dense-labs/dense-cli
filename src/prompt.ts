@@ -1,6 +1,6 @@
 import inquirer from 'inquirer'
 import {IpromptItem} from './types'
-
+import {genGradientText} from './utils/asciitext'
 export const chooseTemplate = async () => {
 	const choices: IpromptItem[] = [
 		{
@@ -30,7 +30,14 @@ export const inputProjectName = async () => {
 		{
 			name: 'projectName',
 			type: 'input',
-			message: 'Please enter a project name'
+			message: 'Please enter the project name, view in package.json',
+			validate: function (input) {
+				if (input.trim() === '') {
+					console.log('project name is required')
+					return false
+				}
+				return true
+			}
 		}
 	])
 	return projectName
