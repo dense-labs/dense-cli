@@ -1,8 +1,8 @@
 import {cac} from 'cac'
-import {version, cliname} from '../package.json'
+import {version, cliname} from './constants'
 import {create} from './actions'
 import {generateAscii} from './utils/asciitext'
-import {TTemplateName} from './types'
+import type {TTemplateName} from './types'
 
 const cli = cac(cliname)
 cli.version(version)

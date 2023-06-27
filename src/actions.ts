@@ -4,7 +4,10 @@ import {chooseTemplate, isGitRepoInitialized, isAutoInstall, inputProjectName} f
 import {createGitRepo, resolveDirPath, installDependencies} from './utils'
 import {downLogger} from './utils/animation'
 import {genGradientText} from './utils/asciitext'
+import {templates} from './constants'
+import type {ITemplates} from './types'
 import {clg} from './utils/log'
+
 export async function create(options: any) {
 	const projectName = await inputProjectName()
 	const name = await chooseTemplate()
@@ -13,7 +16,8 @@ export async function create(options: any) {
 	if (isExists) return
 	const dir = resolveDirPath(name)
 	const isInitGit = await isGitRepoInitialized()
-	await downLogger(downloadObject('github:dense-labs/tool-template', dir, {clone: false}))
+	const {downloadUrl} = templates[name as keyof ITemplates]
+	await downLogger(downloadObject(downloadUrl, dir, {clone: false}))
 	if (isInitGit) {
 		// 在指定目录下初始化 Git 仓库
 		await createGitRepo(dir)
