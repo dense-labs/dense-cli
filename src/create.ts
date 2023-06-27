@@ -72,7 +72,6 @@ export function updatePackageName(name: string, url: string) {
 				const packageObject = JSON.parse(packageData.toString())
 				// 修改 name 字段
 				packageObject.name = name
-				console.log(packageObject)
 				// 将修改后的对象写回到文件中
 				fs.writeFileSync('package.json', JSON.stringify(packageObject, null, 2))
 				resolve(1)
