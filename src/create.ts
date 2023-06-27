@@ -61,3 +61,28 @@ export function downloadObject(url: string, path: string, opt: any) {
 		console.log(e)
 	})
 }
+
+export function updatePackageName(name: string, url: string) {
+	return new Promise((resolve, reject) => {
+		const packagePath = path.join(url, 'package.json')
+		if (fs.existsSync(packagePath)) {
+			try {
+				// 读取 package.json 文件
+				const packageData = fs.readFileSync(packagePath)
+				const packageObject = JSON.parse(packageData.toString())
+				// 修改 name 字段
+				packageObject.name = name
+				console.log(packageObject)
+				// 将修改后的对象写回到文件中
+				fs.writeFileSync('package.json', JSON.stringify(packageObject, null, 2))
+				resolve(1)
+			} catch (err) {
+				log.err(err as string)
+				process.exit(1)
+			}
+		} else {
+			log.err(packagePath + 'package.json not found')
+			reject()
+		}
+	})
+}
