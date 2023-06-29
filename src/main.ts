@@ -20,6 +20,12 @@ cli.command('init <template-name> <dir-name>', 'create a new project') // 增加
 	.action(async (templateName: TTemplateName, dirName: string, cmd) => {
 		create(cmd)
 	})
+
+cli.command('config', ' user config')
+	.alias('c')
+	.option('-s, --set <set>', 'set config')
+	.option('-g, --get <name>', 'get config')
+
 cli
 	.command('proxy', 'proxy user config')
 	.alias('p')
@@ -35,10 +41,10 @@ cli
 		}
 		if (args.author) {
 			// const info = parseAuthor(args.author)
-			if (info) {
-				config.name = info.name
-				config.email = info.email
-			}
+			// if (info) {
+			// 	config.name = info.name
+			// 	config.email = info.email
+			// }
 		}
 		// storeProxyConfig(config)
 	})
