@@ -1,6 +1,5 @@
 import inquirer from 'inquirer'
-import {IpromptItem} from './types'
-import {genGradientText} from './utils/asciitext'
+import type {IpromptItem} from './types'
 export const chooseTemplate = async () => {
 	const choices: IpromptItem[] = [
 		{
