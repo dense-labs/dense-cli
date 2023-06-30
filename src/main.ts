@@ -1,10 +1,9 @@
-import { cac } from 'cac'
-import { version, cliname } from './constants'
-import { create } from './actions'
-import { generateAscii } from './utils/asciitext'
-import type { TTemplateName } from './types'
-import { parseAuthor, storeProxyConfig } from './proxy'
-
+import {cac} from 'cac'
+import {version, cliname} from './constants'
+import {create} from './actions'
+import {generateAscii} from './utils/asciitext'
+import type {TTemplateName} from './types'
+import {parseAuthor, storeProxyConfig, showCustomConfig} from './config'
 const cli = cac(cliname)
 cli.version(version)
 generateAscii(cliname)
@@ -21,32 +20,36 @@ cli.command('init <template-name> <dir-name>', 'create a new project') // 增加
 		create(cmd)
 	})
 
-cli.command('config', ' user config')
-	.alias('c')
-	.option('-s, --set <set>', 'set config')
-	.option('-g, --get <name>', 'get config')
-
-cli
-	.command('proxy', 'proxy user config')
-	.alias('p')
+cli.command('config', 'configuration processing for git projects')
+	.alias('gc')
 	.option('-r, --rule <rule>', 'proxy rule (string match repository url)')
 	.option('-n, --name <name>', 'proxy name')
 	.option('-e, --email <email>', 'proxy email')
 	.option('-a, --author <author>', 'proxy name and email (xxx <xxx@xx.com>)')
-	.action(args => {
+	.action((args) => {
 		const config = {
 			rule: args.r,
 			name: args.n,
 			email: args.e
 		}
 		if (args.author) {
-			// const info = parseAuthor(args.author)
-			// if (info) {
-			// 	config.name = info.name
-			// 	config.email = info.email
-			// }
+			const info = parseAuthor(args.author)
+			if (info) {
+				config.name = info.name
+				config.email = info.email
+			}
 		}
-		// storeProxyConfig(config)
+		storeProxyConfig(config)
+	})
+
+cli.command('config-show', 'show your proxy config')
+	.alias('gs')
+	.option('-l, --list', 'show all proxy config', {default: true})
+	.option('-r, --rule <rule>', 'show <rule> proxy config')
+	.action((args) => {
+		//  execGitCommand(cli.rawArgs.slice(2))
+		console.log(cli.rawArgs.slice(2), args)
+		showCustomConfig(args.r)
 	})
 
 cli.help(() => {
