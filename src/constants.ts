@@ -5,7 +5,7 @@ export const register = {
 	taobao: 'https://registry.npmmirror.com/'
 }
 
-export {version, cliname} from '../package.json'
+export {version, name, cliname} from '../package.json'
 
 export const templates: ITemplates = {
 	tool: {
