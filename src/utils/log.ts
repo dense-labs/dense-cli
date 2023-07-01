@@ -16,11 +16,19 @@ export const log = {
 }
 
 /**
+ * Logs a info message.
+ * @param {string} msg
+ */
+export function info(msg: string) {
+	console.info(pc.bold(MESSAGE_PREFIX) + msg)
+}
+
+/**
  * Logs a warning message.
  * @param {string} msg
  */
 export function warn(msg: string) {
-	console.warn(MESSAGE_PREFIX + msg)
+	console.warn(pc.bold(MESSAGE_PREFIX) + msg)
 }
 
 /**
@@ -28,6 +36,6 @@ export function warn(msg: string) {
  * @param {string} msg
  */
 export function error(msg: string) {
-	console.error(MESSAGE_PREFIX + msg)
+	console.error(pc.bold(MESSAGE_PREFIX) + msg)
 }
 export default log

@@ -6,7 +6,7 @@ import {downLogger} from './utils/animation'
 import {genGradientText} from './utils/asciitext'
 import {templates} from './constants'
 import type {ITemplates} from './types'
-import {clg} from './utils/log'
+import log from './utils/log'
 
 export async function create(options: any) {
 	const projectName = await inputProjectName()
@@ -26,10 +26,10 @@ export async function create(options: any) {
 	const isInstall = await isAutoInstall()
 
 	if (isInstall) {
-		clg('📦  Installing additional dependencies...\n')
+		log.info('📦  Installing additional dependencies...\n')
 		await installDependencies(dir)
-		clg(`🎉  Successfully created project ${pc.yellow(name)}.`)
+		log.info(`🎉  Successfully created project ${pc.yellow(name)}.`)
 	} else {
-		clg(`\n👉 Get started with the following commands:\n\n $ ${pc.cyan('cd ' + genGradientText(name))}\n $ ${pc.cyan('npm install')} \n $ ${pc.cyan('npm run dev')} \n`)
+		log.info(`\n👉 Get started with the following commands:\n\n $ ${pc.cyan('cd ' + genGradientText(name))}\n $ ${pc.cyan('npm install')} \n $ ${pc.cyan('npm run dev')} \n`)
 	}
 }

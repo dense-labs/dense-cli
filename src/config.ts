@@ -1,5 +1,5 @@
 import {execSync as exec, spawn} from 'child_process'
-import log from './utils/log'
+import log, {info} from './utils/log'
 import Configstore from 'configstore'
 import {name} from './constants'
 const config = new Configstore(name, {configure: []})
@@ -19,14 +19,14 @@ export function getRepositoryUrl() {
 	return exec('git config --get remote.origin.url').toString().trim()
 }
 
-export function showCustomConfig(rule?: string) {
+export function showGitConfig(rule?: string) {
 	const proxyConfig = config.get('configure')
 	if (!rule) {
-		log.info('\n' + JSON.stringify(proxyConfig, null, 2))
+		console.table(proxyConfig)
 	} else {
 		const config = proxyConfig.find((item: ProxyConfig) => item.rule === rule)
-		if (config) log.info('\n' + JSON.stringify(config, null, 2))
-		else log.warning(`no proxy config found for rule: ${rule}`)
+		if (config) console.table([config])
+		else log.warning(`no proxy config found for rule: ${rule}\n`)
 	}
 }
 /**
@@ -46,16 +46,16 @@ export function parseAuthor(author: string) {
 	}
 }
 export function execGitCommand(args: string[]) {
-	spawn('git', args, {stdio: 'inherit'})
+	spawn('git', args.slice(1), {stdio: 'inherit'})
 	if (args.length) {
-		if (args[0] === 'clone') {
+		if (args[1] === 'clone') {
 			// git clone xxx
 			// TODO: need to refactor
-			const repo = args[1]
+			const repo = args[2]
 			execProxyConfig([], repo, `cd ${getDirName(repo)} && `)
-		} else if (args[0] === 'remote') {
+		} else if (args[1] === 'remote') {
 			// git remote add origin xxx
-			if (args[1] === 'add') execProxyConfig([], args[args.length - 1])
+			if (args[2] === 'add') execProxyConfig([], args[args.length - 1])
 		}
 	}
 }

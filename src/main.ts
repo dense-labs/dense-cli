@@ -3,7 +3,7 @@ import {version, cliname} from './constants'
 import {create} from './actions'
 import {generateAscii} from './utils/asciitext'
 import type {TTemplateName} from './types'
-import {parseAuthor, storeProxyConfig, showCustomConfig} from './config'
+import {parseAuthor, storeProxyConfig, showGitConfig, execGitCommand} from './config'
 const cli = cac(cliname)
 cli.version(version)
 generateAscii(cliname)
@@ -20,7 +20,7 @@ cli.command('init <template-name> <dir-name>', 'create a new project') // 增加
 		create(cmd)
 	})
 
-cli.command('config', 'configuration processing for git projects')
+cli.command('git-config', 'configuration processing for git projects')
 	.alias('gc')
 	.option('-r, --rule <rule>', 'proxy rule (string match repository url)')
 	.option('-n, --name <name>', 'proxy name')
@@ -42,14 +42,20 @@ cli.command('config', 'configuration processing for git projects')
 		storeProxyConfig(config)
 	})
 
-cli.command('config-show', 'show your proxy config')
+
+cli.command('git-show', 'show your proxy config')
 	.alias('gs')
 	.option('-l, --list', 'show all proxy config', {default: true})
 	.option('-r, --rule <rule>', 'show <rule> proxy config')
 	.action((args) => {
-		//  execGitCommand(cli.rawArgs.slice(2))
-		console.log(cli.rawArgs.slice(2), args)
-		showCustomConfig(args.r)
+		showGitConfig(args.r)
+	})
+
+cli.command('git-proxy', 'proxy git command')
+	.alias('gitp')
+	.action((args) => {
+		// console.log(cli.rawArgs.slice(2), args)
+		execGitCommand(cli.rawArgs.slice(2))
 	})
 
 cli.help(() => {
