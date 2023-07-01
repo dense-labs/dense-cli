@@ -58,6 +58,11 @@ cli.command('git-proxy', 'proxy git command')
 		execGitCommand(cli.rawArgs.slice(2))
 	})
 
+cli.on('command:gs', () => {
+	console.error('Invalid command: %s', cli.rawArgs.join(' ') + '\n')
+	process.exit(1)
+})
+
 cli.help(() => {
 	console.log('help')
 })
