@@ -52,7 +52,9 @@ cli.command('git-show', 'show your proxy config')
 
 cli.command('git-proxy', 'proxy git command')
 	.alias('gp')
+	.allowUnknownOptions()
 	.action((args) => {
+		console.log(args)
 		execGitCommand(cli.rawArgs.slice(2))
 	})
 

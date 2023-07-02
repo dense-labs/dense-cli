@@ -13,11 +13,5 @@ export default defineConfig([
 		treeshake: true,
 		format: ['cjs'],
 		...config
-	},
-	{
-		entry: ['src/gitproxy.ts'],
-		treeshake: true,
-		format: ['cjs'],
-		...config
 	}
 ])
