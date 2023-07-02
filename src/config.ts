@@ -1,5 +1,5 @@
 import {execSync as exec, spawn} from 'child_process'
-import log, {info} from './utils/log'
+import log from './utils/log'
 import Configstore from 'configstore'
 import {name} from './constants'
 const config = new Configstore(name, {configure: []})
@@ -29,6 +29,18 @@ export function showGitConfig(rule?: string) {
 		else log.warning(`no proxy config found for rule: ${rule}\n`)
 	}
 }
+export function delGitConfig(rules: string[], all = false) {
+	if (all) {
+		config.set('configure', [])
+	}
+	const proxyConfig = config.get('configure')
+	const newProxyConfig = proxyConfig.filter((config: ProxyConfig) => !rules.includes(config.rule))
+	if (newProxyConfig.length < proxyConfig.length) {
+		config.set('configure', newProxyConfig)
+		log.info('delete success')
+	}
+}
+  
 /**
  * @param author - 字符串包含名称和电子邮件地址，中间使用 '|' 分隔。
  * @returns 解析后的对象，包含解析出的名称和电子邮件地址。

@@ -3,10 +3,9 @@ import {version, cliname} from './constants'
 import {create} from './actions'
 import {generateAscii} from './utils/asciitext'
 import type {TTemplateName} from './types'
-import {parseAuthor, storeProxyConfig, showGitConfig, execGitCommand} from './config'
+import {parseAuthor, storeProxyConfig, showGitConfig, execGitCommand, delGitConfig} from './config'
 const cli = cac(cliname)
 cli.version(version)
-generateAscii(cliname)
 
 cli.command('create', 'create a new project') // 增加创建指令
 	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
@@ -52,14 +51,22 @@ cli.command('git-show', 'show your proxy config')
 	})
 
 cli.command('git-proxy', 'proxy git command')
-	.alias('gitp')
+	.alias('gp')
 	.action((args) => {
-		// console.log(cli.rawArgs.slice(2), args)
 		execGitCommand(cli.rawArgs.slice(2))
 	})
 
-cli.on('command:gs', () => {
+// delete proxy config
+cli.command('git-delete [...rules]', 'delete your proxy config')
+	.alias('gd')
+	.option('-a, --all', 'delete all proxy config', { default: false })
+	.action((rules, args) => {
+		delGitConfig(rules, args.a)
+	})
+
+cli.on('command:*', () => {
 	console.error('Invalid command: %s', cli.rawArgs.join(' ') + '\n')
+	generateAscii(cliname)
 	process.exit(1)
 })
 
