@@ -20,7 +20,8 @@
   "main": "bin/index.js",
   "bin": {
     "d": "bin/index.js",
-    "dense": "bin/index.js"
+    "dense": "bin/index.js",
+    "gpx": "bin/gitproxy.js"
   },
   "files": [
     "dist",
