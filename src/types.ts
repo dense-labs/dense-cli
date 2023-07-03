@@ -20,3 +20,15 @@ export interface IpromptItem {
 	name: TTemplateName
 	checked?: boolean
 }
+
+export interface IProxyConfig {
+	rule: string
+	name: string
+	email: string
+}
+export interface IGitConfig {
+	rule?: string
+	name?: string
+	email?: string
+	author?: string
+}

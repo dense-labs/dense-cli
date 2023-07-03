@@ -1,9 +1,8 @@
 import {cac} from 'cac'
 import {version, cliname} from './constants'
-import {create} from './actions'
+import {create, useGitProxy, showGitConfig, execGitCommand, delGitConfig} from './command'
 import {generateAscii} from './utils/asciitext'
 import type {TTemplateName} from './types'
-import {parseAuthor, storeProxyConfig, showGitConfig, execGitCommand, delGitConfig} from './config'
 const cli = cac(cliname)
 cli.version(version)
 
@@ -26,20 +25,7 @@ cli.command('git-config', 'configuration processing for git projects')
 	.option('-e, --email <email>', 'proxy email')
 	.option('-a, --author <author>', 'proxy name and email (xxx <xxx@xx.com>)')
 	.action((args) => {
-		const config = {
-			rule: args.r,
-			name: args.n,
-			email: args.e
-		}
-		if (args.author) {
-			const info = parseAuthor(args.author)
-			if (info) {
-				config.name = info.name
-				config.email = info.email
-			}
-		}
-		storeProxyConfig(config)
-		showGitConfig()
+		useGitProxy(args)
 	})
 
 cli.command('git-show', 'show your proxy config')

@@ -3,9 +3,9 @@ import fs from 'fs-extra'
 import ora, {Ora} from 'ora'
 import path from 'path'
 import pc from 'picocolors'
-import {isOverwriteDir} from './prompt'
-import {Ioptions} from './types'
-import log from './utils/log'
+import {isOverwriteDir} from '../prompt'
+import {Ioptions} from '../types'
+import log from '../utils/log'
 const spinner: Ora = ora()
 /**
  * 判断指定目录是否存在

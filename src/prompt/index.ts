@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import type {IpromptItem} from './types'
+import type {IpromptItem} from '../types'
 export const chooseTemplate = async () => {
 	const choices: IpromptItem[] = [
 		{

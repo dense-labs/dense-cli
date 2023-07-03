@@ -1,14 +1,11 @@
 import {execSync as exec, spawn} from 'child_process'
-import log from './utils/log'
+import log from '../utils/log'
 import Configstore from 'configstore'
-import {name} from './constants'
+import {name} from '../constants'
+import type {IProxyConfig} from '../types'
+
 const config = new Configstore(name, {configure: []})
 
-export interface ProxyConfig {
-	rule: string
-	name: string
-	email: string
-}
 function getDirName(repository: string) {
 	return repository.split('/').pop().replace('.git', '')
 }
@@ -39,7 +36,7 @@ export function showGitConfig(rule?: string) {
 	if (!rule) {
 		console.table(proxyConfig)
 	} else {
-		const config = proxyConfig.find((item: ProxyConfig) => item.rule === rule)
+		const config = proxyConfig.find((item: IProxyConfig) => item.rule === rule)
 		if (config) console.table([config])
 		else log.warning(`no proxy config found for rule: ${rule}\n`)
 	}
@@ -53,7 +50,7 @@ export function delGitConfig(rules: string[], all = false) {
 		config.set('configure', [])
 	}
 	const proxyConfig = config.get('configure')
-	const newProxyConfig = proxyConfig.filter((config: ProxyConfig) => !rules.includes(config.rule))
+	const newProxyConfig = proxyConfig.filter((config: IProxyConfig) => !rules.includes(config.rule))
 	if (newProxyConfig.length < proxyConfig.length) {
 		config.set('configure', newProxyConfig)
 		log.info('delete success')
@@ -78,13 +75,13 @@ export function execGitCommand(args: string[]) {
  * @param options - 代理配置选项对象，必须包含 'rule' 属性，并且 'name' 和 'email' 属性至少提供一个。
  * @param immediately - 是否立即执行代理配置，默认为 false。
  */
-export function storeProxyConfig(options: ProxyConfig, immediately = false) {
+export function storeProxyConfig(options: IProxyConfig, immediately = false) {
 	if (!options.rule || (!options.name && !options.email)) {
 		log.err('Invalid options. Please set your name and email.')
 		return
 	}
 	const configure = config.get('configure')
-	const exsitConfig = configure.find((c: ProxyConfig) => c.rule === options.rule)
+	const exsitConfig = configure.find((c: IProxyConfig) => c.rule === options.rule)
 	if (exsitConfig) {
 		exsitConfig.email = options.email || exsitConfig.email
 		exsitConfig.name = options.name || exsitConfig.name
@@ -104,7 +101,7 @@ export function storeProxyConfig(options: ProxyConfig, immediately = false) {
  * @param repository - 仓库 URL，默认为当前仓库的 URL。
  * @param precommand - 在执行 git config 命令之前添加的预命令，默认为空字符串。
  */
-export function execProxyConfig(proxyConfig?: ProxyConfig[], repository?: string, precommand = '') {
+export function execProxyConfig(proxyConfig?: IProxyConfig[], repository?: string, precommand = '') {
 	proxyConfig = proxyConfig && proxyConfig.length ? proxyConfig : config.get('configure')
 	process.nextTick(() => {
 		repository = repository || getRepositoryUrl()

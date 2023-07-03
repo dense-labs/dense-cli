@@ -1,12 +1,14 @@
 import pc from 'picocolors'
 import {downloadObject, isExistsFile, updatePackageName} from './create'
-import {chooseTemplate, isGitRepoInitialized, isAutoInstall, inputProjectName} from './prompt'
-import {createGitRepo, resolveDirPath, installDependencies} from './utils'
-import {downLogger} from './utils/animation'
-import {genGradientText} from './utils/asciitext'
-import {templates} from './constants'
-import type {ITemplates} from './types'
-import log from './utils/log'
+import {chooseTemplate, isGitRepoInitialized, isAutoInstall, inputProjectName} from '../prompt'
+import {createGitRepo, resolveDirPath, installDependencies} from '../utils'
+import {downLogger} from '../utils/animation'
+import {genGradientText} from '../utils/asciitext'
+import {templates} from '../constants'
+import type {ITemplates, IGitConfig} from '../types'
+import log from '../utils/log'
+import {parseAuthor, storeProxyConfig} from './git'
+export * from './git'
 
 export async function create(options: any) {
 	const projectName = await inputProjectName()
@@ -32,4 +34,20 @@ export async function create(options: any) {
 	} else {
 		log.info(`\n👉 Get started with the following commands:\n\n $ ${pc.cyan('cd ' + genGradientText(name))}\n $ ${pc.cyan('npm install')} \n $ ${pc.cyan('npm run dev')} \n`)
 	}
+}
+
+export function useGitProxy(args: IGitConfig) {
+	const config = {
+		rule: args.rule,
+		name: args.name,
+		email: args.email
+	}
+	if (args.author) {
+		const info = parseAuthor(args.author)
+		if (info) {
+			config.name = info.name
+			config.email = info.email
+		}
+	}
+	storeProxyConfig(config)
 }
