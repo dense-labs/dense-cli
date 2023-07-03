@@ -20,6 +20,19 @@ export function hasGitInstalled(): boolean {
 }
 
 /**
+ * 判断是否安装了 pnpm
+ * @returns 如果系统中安装了 pnpm，则返回 true；否则返回 false。
+ */
+export function hasPnpm() {
+	try {
+		execSync('pnpm --version', {stdio: 'ignore'})
+		return true
+	} catch (err) {
+		return false
+	}
+}
+
+/**
  * 在指定目录下初始化 Git 仓库
  * @param repoPath - 仓库路径
  */
@@ -58,6 +71,10 @@ export function resolveDirPath(name: string): string {
  */
 export function installDependencies(cwd: string): void {
 	console.log(cwd, 'Start installing dependencies')
-	// 执行 `npm install` 命令
-	execSync('npm install', {cwd, stdio: 'inherit'})
+	// 执行 `install`
+	if (hasPnpm()) {
+		execSync('pnpm install', {cwd, stdio: 'inherit'})
+	} else {
+		execSync('npm install', {cwd, stdio: 'inherit'})
+	}
 }
