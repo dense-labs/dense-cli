@@ -39,8 +39,8 @@ cli.command('git-config', 'configuration processing for git projects')
 			}
 		}
 		storeProxyConfig(config)
+		showGitConfig()
 	})
-
 
 cli.command('git-show', 'show your proxy config')
 	.alias('gs')
@@ -54,14 +54,13 @@ cli.command('git-proxy', 'proxy git command')
 	.alias('gp')
 	.allowUnknownOptions()
 	.action((args) => {
-		console.log(args)
 		execGitCommand(cli.rawArgs.slice(2))
 	})
 
 // delete proxy config
 cli.command('git-delete [...rules]', 'delete your proxy config')
 	.alias('gd')
-	.option('-a, --all', 'delete all proxy config', { default: false })
+	.option('-a, --all', 'delete all proxy config', {default: false})
 	.action((rules, args) => {
 		delGitConfig(rules, args.a)
 	})

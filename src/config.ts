@@ -18,29 +18,6 @@ function getDirName(repository: string) {
 export function getRepositoryUrl() {
 	return exec('git config --get remote.origin.url').toString().trim()
 }
-
-export function showGitConfig(rule?: string) {
-	const proxyConfig = config.get('configure')
-	if (!rule) {
-		console.table(proxyConfig)
-	} else {
-		const config = proxyConfig.find((item: ProxyConfig) => item.rule === rule)
-		if (config) console.table([config])
-		else log.warning(`no proxy config found for rule: ${rule}\n`)
-	}
-}
-export function delGitConfig(rules: string[], all = false) {
-	if (all) {
-		config.set('configure', [])
-	}
-	const proxyConfig = config.get('configure')
-	const newProxyConfig = proxyConfig.filter((config: ProxyConfig) => !rules.includes(config.rule))
-	if (newProxyConfig.length < proxyConfig.length) {
-		config.set('configure', newProxyConfig)
-		log.info('delete success')
-	}
-}
-  
 /**
  * @param author - 字符串包含名称和电子邮件地址，中间使用 '|' 分隔。
  * @returns 解析后的对象，包含解析出的名称和电子邮件地址。
@@ -57,6 +34,32 @@ export function parseAuthor(author: string) {
 		log.err("parse author error, ensure your author is valid: 'xxxx <xxxx@xx.com>'")
 	}
 }
+export function showGitConfig(rule?: string) {
+	const proxyConfig = config.get('configure')
+	if (!rule) {
+		console.table(proxyConfig)
+	} else {
+		const config = proxyConfig.find((item: ProxyConfig) => item.rule === rule)
+		if (config) console.table([config])
+		else log.warning(`no proxy config found for rule: ${rule}\n`)
+	}
+}
+/**
+ * @param rules - 要删除的代理配置规则数组。
+ * @param all - 是否删除所有代理配置，默认为 false。
+ */
+export function delGitConfig(rules: string[], all = false) {
+	if (all) {
+		config.set('configure', [])
+	}
+	const proxyConfig = config.get('configure')
+	const newProxyConfig = proxyConfig.filter((config: ProxyConfig) => !rules.includes(config.rule))
+	if (newProxyConfig.length < proxyConfig.length) {
+		config.set('configure', newProxyConfig)
+		log.info('delete success')
+	}
+}
+
 export function execGitCommand(args: string[]) {
 	spawn('git', args.slice(1), {stdio: 'inherit'})
 	if (args.length) {
