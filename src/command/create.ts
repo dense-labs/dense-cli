@@ -4,7 +4,7 @@ import ora, {Ora} from 'ora'
 import path from 'path'
 import pc from 'picocolors'
 import {isOverwriteDir} from '../prompt'
-import {Ioptions} from '../types'
+import type {Ioptions} from '../types'
 import log from '../utils/log'
 const spinner: Ora = ora()
 /**

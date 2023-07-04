@@ -5,12 +5,12 @@ import {createGitRepo, resolveDirPath, installDependencies} from '../utils'
 import {downLogger} from '../utils/animation'
 import {genGradientText} from '../utils/asciitext'
 import {templates} from '../constants'
-import type {ITemplates, IGitConfig} from '../types'
+import type {ITemplates, IGitConfig, Ioptions} from '../types'
 import log from '../utils/log'
 import {parseAuthor, storeProxyConfig} from './git'
 export * from './git'
 
-export async function create(options: any) {
+export async function create(options: Ioptions) {
 	const projectName = await inputProjectName()
 	const name = await chooseTemplate()
 	const isExists = await isExistsFile(name, options)

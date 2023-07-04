@@ -12,10 +12,14 @@ cli.command('create', 'create a new project') // 增加创建指令
 		create(cmd)
 	})
 
-cli.command('init <template-name> <dir-name>', 'create a new project') // 增加创建指令
+cli.command('init [template-name] [dir-name]', 'create a new project') // 增加创建指令
 	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
 	.action(async (templateName: TTemplateName, dirName: string, cmd) => {
-		create(cmd)
+		if (templateName && dirName) {
+			create(cmd)
+		} else {
+			console.error('Invalid command: %s', cli.rawArgs.join(' ') + '\n')
+		}
 	})
 
 cli.command('git-config', 'configuration processing for git projects')
