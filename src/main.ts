@@ -2,7 +2,6 @@ import {cac} from 'cac'
 import {version, cliname} from './constants'
 import {create, useGitProxy, showGitConfig, execGitCommand, delGitConfig} from './command'
 import {generateAscii} from './utils/asciitext'
-import type {TTemplateName} from './types'
 const cli = cac(cliname)
 cli.version(version)
 
@@ -14,11 +13,11 @@ cli.command('create', 'create a new project') // 增加创建指令
 
 cli.command('init [template-name] [dir-name]', 'create a new project') // 增加创建指令
 	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
-	.action(async (templateName: TTemplateName, dirName: string, cmd) => {
+	.action(async (templateName: string, dirName: string, cmd) => {
 		if (templateName && dirName) {
 			create(cmd)
 		} else {
-			console.error('Invalid command: %s', cli.rawArgs.join(' ') + '\n')
+			console.error('template-name or dir-name is requiry')
 		}
 	})
 
