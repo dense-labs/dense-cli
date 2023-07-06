@@ -16,7 +16,7 @@ export const figletAscii = (asciiText: string) => {
 			})
 	)
 	console.log(text)
-	console.log(`run ${genGradientText(asciiText + ' <command> --help')} View detailed usage of the command. \r\n`)
+	console.log(`run ${genGradientText(asciiText + ' --help')} View detailed usage of the command. \r\n`)
 }
 
 export function genGradientText(gradText: string) {

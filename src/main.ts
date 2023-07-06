@@ -3,7 +3,14 @@ import {version, cliname} from './constants'
 import {create, useGitProxy, showGitConfig, execGitCommand, delGitConfig} from './command'
 import {generateAscii} from './utils/asciitext'
 const cli = cac(cliname)
-cli.version(version)
+
+cli.command('[root]') // default command
+	.action(async (root: string, argv: any) => {
+		if (root) {
+			argv.root = root
+		}
+		generateAscii(cliname)
+	})
 
 cli.command('create', 'create a new project') // 增加创建指令
 	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
@@ -54,14 +61,6 @@ cli.command('git-delete [...rules]', 'delete your proxy config')
 		delGitConfig(rules, args.a)
 	})
 
-cli.on('command:*', () => {
-	console.error('Invalid command: %s', cli.rawArgs.join(' ') + '\n')
-	generateAscii(cliname)
-	process.exit(1)
-})
-
-cli.help(() => {
-	console.log('help')
-})
-
+cli.version(version)
+cli.help()
 cli.parse()
