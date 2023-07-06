@@ -11,20 +11,27 @@ import {parseAuthor, storeProxyConfig} from './git'
 export * from './git'
 
 export async function create(options: Ioptions) {
+	// 输入项目的名称也就是package.json中的name
 	const projectName = await inputProjectName()
+	// 选择项目模板
 	const name = await chooseTemplate()
-	const isExists = await isExistsFile(name, options)
 	// 判断指定目录是否存在
+	const isExists = await isExistsFile(name, options)
 	if (isExists) return
 	const dir = resolveDirPath(name)
+	// 是否需要初始化 .git
 	const isInitGit = await isGitRepoInitialized()
+	// 获取模板
 	const {downloadUrl} = templates[name as keyof ITemplates]
+	// 下载项目到本地
 	await downLogger(downloadObject(downloadUrl, dir, {clone: false}))
 	if (isInitGit) {
 		// 在指定目录下初始化 Git 仓库
 		await createGitRepo(dir)
 	}
+	// 更新下载后的package.json的包名
 	await updatePackageName(projectName, dir)
+	// 是否下载自动安装依赖
 	const isInstall = await isAutoInstall()
 
 	if (isInstall) {
