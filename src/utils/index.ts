@@ -78,3 +78,15 @@ export function installDependencies(cwd: string): void {
 		execSync('npm install', {cwd, stdio: 'inherit'})
 	}
 }
+
+export function getGitRemoteUrl(): Promise<string> {
+	return new Promise((resolve, reject) => {
+		exec('git config --get remote.origin.url', (error, stdout, stderr) => {
+			if (error) {
+				reject(stderr)
+			} else {
+				resolve(stdout.trim())
+			}
+		})
+	})
+}

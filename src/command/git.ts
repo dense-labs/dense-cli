@@ -2,9 +2,10 @@ import {execSync as exec, spawn} from 'child_process'
 import log from '../utils/log'
 import Configstore from 'configstore'
 import {name} from '../constants'
+import {getGitRemoteUrl} from '../utils'
 import type {IProxyConfig} from '../types'
-
 const config = new Configstore(name, {configure: []})
+const storeLogs = new Configstore(name + '-logs', {logs: []})
 
 function getDirName(repository: string) {
 	return repository.split('/').pop().replace('.git', '')
@@ -57,7 +58,7 @@ export function delGitConfig(rules: string[], all = false) {
 	}
 }
 
-export function execGitCommand(args: string[]) {
+export async function execGitCommand(args: string[]) {
 	spawn('git', args.slice(1), {stdio: 'inherit'})
 	if (args.length) {
 		if (args[1] === 'clone') {
@@ -68,7 +69,29 @@ export function execGitCommand(args: string[]) {
 		} else if (args[1] === 'remote') {
 			// git remote add origin xxx
 			if (args[2] === 'add') execProxyConfig([], args[args.length - 1])
+		} else if (['commit', 'push', 'merge'].includes(args[1])) {
+			// record commit and push and merge logs
+			// Get the git address of the current project
+			uploadGitLogs(args)
 		}
+	}
+}
+async function uploadGitLogs(args: string[]) {
+	const logs = storeLogs.get('logs').length > 0 ? JSON.parse(storeLogs.get('logs')) : storeLogs.get('logs')
+	const gitPath = await getGitRemoteUrl()
+	const date = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString()
+	logs.push({gitPath, args, date})
+	storeLogs.set('logs', JSON.stringify(logs))
+	storeLogs.set('total', logs.length)
+	storeLogs.set('lastdate', date)
+	if (logs.length >= 1000) {
+		setTimeout(() => {
+			storeLogs.set('logs', [])
+			storeLogs.set('total', 0)
+			storeLogs.set('lastdate', '')
+			storeLogs.set('uploadDate', date)
+			storeLogs.set('uploadStatus', 'succuess')
+		}, 3000)
 	}
 }
 /**
