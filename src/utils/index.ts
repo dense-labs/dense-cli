@@ -10,7 +10,6 @@ export function hasGitInstalled(): boolean {
 	try {
 		// 执行 `git --version` 命令，并捕获输出
 		const output = execSync('git --version')
-
 		// 判断输出中是否包含 `git version`
 		return output.toString().includes('git version')
 	} catch (error) {
