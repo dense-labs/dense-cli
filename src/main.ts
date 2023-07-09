@@ -22,7 +22,7 @@ cli.command('init [template-name] [dir-name]', 'create a new project') // 增加
 	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
 	.action(async (templateName: string, dirName: string, cmd) => {
 		if (templateName && dirName) {
-			// create(cmd)
+			create(cmd)
 		} else {
 			console.error('template-name or dir-name is requiry')
 		}
