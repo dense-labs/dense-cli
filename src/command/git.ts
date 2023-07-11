@@ -1,4 +1,4 @@
-import {execSync as exec, spawn} from 'child_process'
+import {execSync as exec, spawnSync} from 'child_process'
 import log from '../utils/log'
 import Configstore from 'configstore'
 import {name} from '../constants'
@@ -59,7 +59,7 @@ export function delGitConfig(rules: string[], all = false) {
 }
 
 export async function execGitCommand(args: string[]) {
-	spawn('git', args.slice(1), {stdio: 'inherit'})
+	spawnSync('git', args.slice(1), {stdio: 'inherit'})
 	if (args.length) {
 		if (args[1] === 'clone') {
 			// git clone xxx
