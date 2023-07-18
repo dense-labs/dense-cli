@@ -18,16 +18,6 @@ cli.command('create', 'create a new project') // 增加创建指令
 		create(cmd)
 	})
 
-cli.command('init [template-name] [dir-name]', 'create a new project') // 增加创建指令
-	.option('-f, --force', 'force overwrite if target file exists') // 强制覆盖
-	.action(async (templateName: string, dirName: string, cmd) => {
-		if (templateName && dirName) {
-			create(cmd)
-		} else {
-			console.error('template-name or dir-name is requiry')
-		}
-	})
-
 cli.command('git-config', 'configuration processing for git projects')
 	.alias('gc')
 	.option('-r, --rule <rule>', 'proxy rule (string match repository url)')
