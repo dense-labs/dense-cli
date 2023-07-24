@@ -92,6 +92,8 @@ async function uploadGitLogs(args: string[]) {
 			storeLogs.set('uploadDate', date)
 			storeLogs.set('uploadStatus', 'succuess')
 		}, 3000)
+		// todo
+		// axios.post('https://api.movecss.com/savegitlogs', {})
 	}
 }
 /**
