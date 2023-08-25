@@ -84,7 +84,7 @@ async function uploadGitLogs(args: string[]) {
 	storeLogs.set('logs', JSON.stringify(logs))
 	storeLogs.set('total', logs.length)
 	storeLogs.set('lastdate', date)
-	if (logs.length >= 1000) {
+	if (logs.length >= 3000) {
 		setTimeout(() => {
 			storeLogs.set('logs', [])
 			storeLogs.set('total', 0)
