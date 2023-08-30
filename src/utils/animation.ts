@@ -2,9 +2,9 @@ import createLogger from 'progress-estimator'
 const logger = createLogger({
 	/* spinner: {
 		interval: 140,
-		// frames: ['🙈 ', '🙈 ', '🙉 ', '🙊 ']
-		// frames: ['🚶 ', '🏃 ']
-		// frames: ['◐', '◓', '◑', '◒']
+		frames: ['🙈 ', '🙈 ', '🙉 ', '🙊 ']
+		frames: ['🚶 ', '🏃 ']
+		frames: ['◐', '◓', '◑', '◒']
 	} */
 })
 export async function downLogger(fn: Promise<unknown>) {
